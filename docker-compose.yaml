@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  database:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=user_pwd
+    ports:
+      - "3306:3306"
+
+  tomcat:
+    image: tomcat:9.0
+    environment:
+      - PLANADO_DATABASE_USER=user
+      - PLANADO_DATABASE_PASSWORD=user_pwd
+      - DATABASE_URI=jdbc:mysql://trabalhos-web-1_database_1:3306/Planado
+    volumes:
+      - "./target/Planado-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/planado.war"
+    ports:
+      - "8080:8080"
